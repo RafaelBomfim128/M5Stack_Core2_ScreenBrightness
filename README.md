@@ -2,6 +2,8 @@
 # M5Stack_Core2_ScreenBrightness
 The Core2 screen brightness is capable of a much larger range of intensities than the standard functions use.
 
+## Core2 (previous version):
+
 This Arduino .ino sketch file contains a useful function: **core2Brightness()**                   
 Normally the brightness can be set from **8 through 20**. (2.5 volts to 2.8 volts)                         
 This function not enly extends the range of brightness values that can be used from **1 through 36**, but it also turns the LED off at value 0.                      
@@ -30,3 +32,23 @@ This gives an extra 16 brightness levels ABOVE the Core2's standard brightness s
 The .ino sketch shows these settings in action, use the touchscreen to control it:
 
 ![image](https://user-images.githubusercontent.com/1586332/128866190-4e3f69bd-8aa7-40ec-92f7-ed0894d540bc.png)
+
+## Core2 (v1.1):
+
+Added in the code "no comments" support for version 1.1 of M5Core2 power management, where it offers values:
+
+**void core2Brightness(uint8_t lvl, bool overdrive = false)**
+The "lvl" parameter:
+0: Backlight physically off.
+10: The standard brightness set by the Core2 1.1 library. (3.3 volts)
+All other values are clamped between 0 and 10.
+
+The "overdrive" parameter:
+This gives an extra 2 brightness levels ABOVE the Core2's v1.1 standard brightness setting.
+0: Backlight physically off.
+10: The max brightness set by the Core2 1.1 library. (3.3 volts)
+12: Full brightness the screen LED can do. (3.5 volts)
+
+**🔴WARNING!🔴**
+Setting "turbo" to true, and brightness over 10 CAN damage your display.
+Therefore there's an optional safety "overdrive" flag if you want to drive the LCD backlight higher than the recommended voltage of 3.3 (up to 3.5) that needs to be set to **true**. If it's false, or omitted from the function call, it's impossible to go over the safe 3.3 volts.
